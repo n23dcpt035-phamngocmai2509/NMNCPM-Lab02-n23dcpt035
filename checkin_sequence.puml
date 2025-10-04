@@ -1,0 +1,24 @@
+@startuml
+actor Receptionist
+participant "Reception UI" as UI
+participant "Reservation Service" as RS
+participant "Room Service" as RoomS
+participant "Billing Service" as Bill
+
+Receptionist -> UI: Search reservation by code
+UI -> RS: Fetch reservation
+RS --> UI: Reservation details
+Receptionist -> UI: Check-in guest
+UI -> RoomS: Assign actual room
+RoomS --> UI: Room assigned
+UI -> RS: Update reservation status -> Checked-in
+RS --> UI: Acknowledged
+--
+Receptionist -> UI: Check-out guest
+UI -> Bill: Calculate final charges
+Bill --> UI: Total amount
+Receptionist -> UI: Process payment
+UI -> Bill: Record payment
+UI -> RS: Update reservation status -> Checked-out
+RoomS -> Housekeeping: Mark room for cleaning
+@enduml

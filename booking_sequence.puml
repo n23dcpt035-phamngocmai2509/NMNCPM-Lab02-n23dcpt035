@@ -1,0 +1,18 @@
+@startuml
+actor Guest
+participant "Web App" as App
+participant "Booking Service" as BS
+participant "Payment Gateway" as PG
+participant "Email Service" as ES
+
+Guest -> App: Select room + dates
+App -> BS: Hold room
+BS --> App: Hold confirmed
+Guest -> App: Submit booking + payment info
+App -> PG: Charge card
+PG --> App: Payment result (success/fail)
+App -> BS: Confirm booking (if success)
+BS --> App: Booking confirmed
+App -> ES: Send confirmation email
+ES --> Guest: Email confirmation
+@enduml

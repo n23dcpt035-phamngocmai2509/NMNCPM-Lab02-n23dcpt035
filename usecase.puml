@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+actor Guest
+actor Receptionist
+actor Manager
+actor "Payment Gateway" as PG
+actor Housekeeping
+
+rectangle "Hotel Booking System" {
+  Guest -- (Search Room)
+  Guest -- (View Room Details)
+  Guest -- (Book Room)
+  Guest -- (Pay Online)
+  Receptionist -- (Manage Reservation)
+  Receptionist -- (Check-in)
+  Receptionist -- (Check-out)
+  Manager -- (Manage Room & Price)
+  Manager -- (View Reports)
+  Housekeeping -- (Manage Housekeeping)
+  (Pay Online) .> PG
+}
+@enduml

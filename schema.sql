@@ -1,0 +1,55 @@
+-- Schema for Hotel Booking System
+CREATE TABLE Guest (
+  GuestID INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(100),
+  Phone VARCHAR(20),
+  Email VARCHAR(100),
+  Address VARCHAR(255)
+);
+
+CREATE TABLE RoomType (
+  TypeID INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(50),
+  Price DECIMAL(10,2),
+  Capacity INT,
+  Description TEXT
+);
+
+CREATE TABLE Room (
+  RoomID INT AUTO_INCREMENT PRIMARY KEY,
+  TypeID INT,
+  Status VARCHAR(20),
+  Floor INT,
+  FOREIGN KEY (TypeID) REFERENCES RoomType(TypeID)
+);
+
+CREATE TABLE Staff (
+  StaffID INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(100),
+  Role VARCHAR(50),
+  Username VARCHAR(50),
+  PasswordHash VARCHAR(255)
+);
+
+CREATE TABLE Reservation (
+  ResvID INT AUTO_INCREMENT PRIMARY KEY,
+  GuestID INT,
+  RoomID INT,
+  StaffID INT,
+  CheckInDate DATE,
+  CheckOutDate DATE,
+  Status VARCHAR(20),
+  FOREIGN KEY (GuestID) REFERENCES Guest(GuestID),
+  FOREIGN KEY (RoomID) REFERENCES Room(RoomID),
+  FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
+);
+
+CREATE TABLE Payment (
+  PaymentID INT AUTO_INCREMENT PRIMARY KEY,
+  ResvID INT,
+  Amount DECIMAL(10,2),
+  Method VARCHAR(50),
+  Status VARCHAR(20),
+  Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ResvID) REFERENCES Reservation(ResvID)
+);
